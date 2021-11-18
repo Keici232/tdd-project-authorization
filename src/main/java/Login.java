@@ -1,8 +1,8 @@
 public class Login {
 
 
-    public boolean verify() {
+    public String verify() {
 
-        return true;
+        return null;
     }
 }

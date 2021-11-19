@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Login {
@@ -15,13 +14,33 @@ public class Login {
 
 
 
-    public boolean verify(String name, String password) {
-        setMembers();
+    public String verify(String name, String password) throws WrongLoginException {
 
-        if (members.get(name).equals(password)){
-            return true;
-        }else{
-            return false;
-        }
+      if (members.containsKey(name)){
+
+          if (members.get(name).equals(password)){
+              return name;
+          }else{
+              throw new WrongLoginException("Wrong password!");
+          }
+      }else{
+          throw new WrongLoginException("Wrong name!");
+      }
+    }
+
+
+
+
+
+    public Boolean verifyTjanst(String name)  {
+
+            if (members.containsKey(name)){
+                return true;
+            }else{
+                return false;
+            }
+
     }
 }
+
+

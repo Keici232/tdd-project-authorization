@@ -2,12 +2,16 @@ import java.util.HashMap;
 
 public class Login {
 
-    HashMap<String, String> members = new HashMap<String, String>();
+    HashMap<String, Member> members = new HashMap<String, Member>();
+    Member anna = new Member("anna","losen");
+    Member berit = new Member("berit","123456");
+    Member kalle = new Member("kalle","password");
 
     public void setMembers() {
-        members.put("anna","losen");
-        members.put("berit","123456");
-        members.put("kalle","password");
+
+        members.put("anna",anna);
+        members.put("berit",berit);
+        members.put("kalle",kalle);
 
 
     }
@@ -18,8 +22,8 @@ public class Login {
 
       if (members.containsKey(name)){
 
-          if (members.get(name).equals(password)){
-              return name;
+          if (members.get(name).passwrod.equals(password)){
+              return "123AbA#";
           }else{
               throw new WrongLoginException("Wrong password!");
           }
@@ -32,9 +36,9 @@ public class Login {
 
 
 
-    public Boolean verifyTjanst(String name)  {
+    public Boolean verifyTjanst(String token)  {
 
-            if (members.containsKey(name)){
+            if (token.equals("123AbA#")){
                 return true;
             }else{
                 return false;

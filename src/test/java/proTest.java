@@ -1,9 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class proTest {
     private Login login;
@@ -15,20 +13,23 @@ public class proTest {
     }
 
     @Test
-    void verifyLoginTrue() throws WrongLoginException {
+    void verifyLoginCorrectToken() throws WrongLoginException {
 
 
-        assertEquals("anna", login.verify("anna","losen"));
-        assertEquals(true,  login.verifyTjanst(login.verify("anna","losen")));
+        assertEquals("123AbA#", login.verify("anna","losen"));
+        assertTrue(  login.verifyTjanst("123AbA#"));
 
     }
 
 
-    
+    @Test
+    void verifyLoginWrongToken() throws WrongLoginException {
 
 
+        assertEquals("123AbA#", login.verify("anna","losen"));
+        assertFalse(  login.verifyTjanst("1234AbA#"));
 
-
+    }
 
     @Test
     void verifyLoginFalsePassword() throws WrongLoginException {

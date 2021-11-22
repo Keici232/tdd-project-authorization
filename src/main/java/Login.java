@@ -3,9 +3,9 @@ import java.util.HashMap;
 public class Login {
 
     HashMap<String, Member> members = new HashMap<String, Member>();
-    Member anna = new Member("anna","losen");
-    Member berit = new Member("berit","123456");
-    Member kalle = new Member("kalle","password");
+    Member anna = new Member("anna",encryptPassword("losen"));
+    Member berit = new Member("berit",encryptPassword("123456"));
+    Member kalle = new Member("kalle",encryptPassword("password"));
 
     public void setMembers() {
 
@@ -18,11 +18,45 @@ public class Login {
 
 
 
+   public String encryptPassword(String password){
+        int key = 6;
+        String encryptedPassword = "";
+
+       char[] charPassword = password.toCharArray();
+
+       for (char c:charPassword) {
+           c += key;
+           encryptedPassword +=c;
+
+       }
+
+    return encryptedPassword;
+   }
+
+
+
+    public String decryptPassword(String password){
+        int key = 6;
+        String decryptedPassword= "";
+        char[] charPassword = password.toCharArray();
+        for (char c:charPassword) {
+            c -= key;
+            decryptedPassword +=c;
+        }
+
+        return decryptedPassword;
+
+    }
+
+
+
     public String verify(String name, String password) throws WrongLoginException {
+
+        String encryptedPassword = encryptPassword(password);
 
       if (members.containsKey(name)){
 
-          if (members.get(name).passwrod.equals(password)){
+          if (members.get(name).passwrod.equals(encryptedPassword)){
               return "123AbA#";
           }else{
               throw new WrongLoginException("Wrong password!");

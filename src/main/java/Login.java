@@ -3,9 +3,14 @@ import java.util.HashMap;
 public class Login {
 
     HashMap<String, Member> members = new HashMap<String, Member>();
-    Member anna = new Member("anna",encryptPassword("losen"));
-    Member berit = new Member("berit",encryptPassword("123456"));
-    Member kalle = new Member("kalle",encryptPassword("password"));
+    Member anna = new Member("anna",encryptPassword("losen"), "ACCOUNT", "read");
+    Member berit = new Member("berit",encryptPassword("123456"), "ACCOUNT", "read and write");
+    Member kalle = new Member("kalle",encryptPassword("password"), "PROVISION_CALC", "execute");
+
+    String token_for_read = "123AbA#";
+    String token_for_read_and_write = "1234AbZ¤";
+    String token_for_execute = "2345Bne&";
+
 
     public void setMembers() {
 
@@ -56,28 +61,38 @@ public class Login {
 
       if (members.containsKey(name)){
 
-          if (members.get(name).passwrod.equals(encryptedPassword)){
-              return "123AbA#";
-          }else{
+          if (members.get(name).password.equals(encryptedPassword)){
+              if (members.get(name).getGroup().equals("read")) {
+                  return token_for_read;
+              }else if (members.get(name).getGroup().equals("read and write")){
+                  return token_for_read_and_write;
+              }else if (members.get(name).getGroup().equals("execute")){
+                  return token_for_execute;
+              }
+          } else{
               throw new WrongLoginException("Wrong password!");
           }
       }else{
           throw new WrongLoginException("Wrong name!");
       }
+      return "";
     }
 
 
 
 
 
-    public Boolean verifyTjanst(String token)  {
+    public String verifyTjanst(String token, String resurs)  {
 
-            if (token.equals("123AbA#")){
-                return true;
-            }else{
-                return false;
+            if (token.equals(token_for_read) && resurs.equals("ACCOUNT")){
+                return "READ";
+            }else if (token.equals(token_for_read_and_write) && resurs.equals("ACCOUNT")){
+                return "READ AND WRITE";
+            }else if (token.equals(token_for_execute) && resurs.equals("PROVISION_CALC")){
+                return "EXECUTE";
+            }else {
+                return "does not exist";
             }
-
     }
 }
 

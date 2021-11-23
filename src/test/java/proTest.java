@@ -17,7 +17,7 @@ public class proTest {
 
 
         assertEquals("123AbA#", login.verify("anna","losen"));
-        assertTrue(  login.verifyTjanst("123AbA#"));
+        assertEquals("READ", login.verifyTjanst(login.verify("anna","losen"), "ACCOUNT"));
 
     }
 
@@ -27,7 +27,7 @@ public class proTest {
 
 
         assertEquals("123AbA#", login.verify("anna","losen"));
-        assertFalse(  login.verifyTjanst("1234AbA#"));
+        assertEquals("does not exist", login.verifyTjanst(login.verify("anna", "losen"), "ACCOUNTT"));
 
     }
 
